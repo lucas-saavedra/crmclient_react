@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
-
+import toast, { Toaster } from 'react-hot-toast';
 import * as Yup from "yup"
 import { useFormik } from 'formik';
 import FormInput from "../components/Input/FormInput"
@@ -10,14 +10,11 @@ import { ADD_USER } from '../graphql/mutations/user.mutations';
 import { useNavigate } from 'react-router-dom';
 
 
-
-
 const Register = () => {
     //message state
-    const [message, setMessage] = useState({ msg: null, error: false });
-    const navigate = useNavigate();
+    
     const [addUser] = useMutation(ADD_USER);
-
+    const navigate = useNavigate();
 
 
     const formik = useFormik({
@@ -42,18 +39,27 @@ const Register = () => {
                         }
                     }
                 })
-
-                const { name, lastname } = response.data.addUser;
-
-                setMessage({ msg: `Succesfully created! User: ${name} ${lastname}`, error: false });
+                toast.success('Success ,redirecting ...', {
+                    style: {
+                        border: '1px solid #2c5282',
+                        padding: '16px',
+                        color: '#2c5282',
+                        backgroundColor: "white"
+                    },
+                });
                 setTimeout(() => {
-                    setMessage({ msg: null, error: false });
                     navigate("/login");
-                }, 3000)
+                }, 2000)
 
             } catch (error) {
-                setMessage({ msg: error.message, error: true })
-                setTimeout(() => setMessage({ msg: null, error: false }), 3000)
+                toast.error(error.message, {
+                    style: {
+                        border: '1px solid #2c5282',
+                        padding: '16px',
+                        color: '#2c5282',
+                        backgroundColor: "white"
+                    },
+                });
             }
         }
 
@@ -70,14 +76,18 @@ const Register = () => {
     }
     return (
 
-        <Dashboard>
-            {message?.msg && showMessage()}
-            <h1 className="text-center
+        <div className='bg-gray-800 min-h-screen'>
+           
+            <h1 className="
+            py-5 text-center
                 text-2xl
                 text-white
                 font-light">
-                Login</h1>
-
+                Register</h1>
+            <Toaster
+                position="bottom-center"
+                reverseOrder={false}
+            />
             <div className="flex justify-center mt-5">
                 <div className="w-full max-w-sm" >
                     <form onSubmit={formik.handleSubmit}
@@ -161,7 +171,7 @@ const Register = () => {
                     </form>
                 </div>
             </div>
-        </Dashboard>
+        </div>
     )
 }
 

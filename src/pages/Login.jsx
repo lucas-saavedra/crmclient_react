@@ -4,7 +4,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import * as Yup from "yup"
 import FormInput from "../components/Input/FormInput";
 import { AUTH_USER } from '../graphql/mutations/user.mutations';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 
 
@@ -121,7 +121,13 @@ const Login = () => {
                             />
 
                         </form>
-                        
+                        <div className='flex flex-col justify-center'>
+                            <p className='text-white text-center' >Does not have an account? </p>
+                            <div className='text-center mt-6'>
+                                <span className='p-2 text-white bg-blue-800 rounded'> <Link to={'/register'}>Register here</Link></span>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
