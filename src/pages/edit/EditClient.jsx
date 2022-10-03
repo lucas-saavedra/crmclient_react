@@ -1,25 +1,26 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { Formik } from "formik";
-import { useRouter } from "next/router";
+
 import * as Yup from "yup";
 import Swal from 'sweetalert2';
 
 import FormInput from "../../components/Input/FormInput";
-import Layout from "../../components/Layout";
+import Dashboard from "../../components/Dashboard";
 
 import Loading from "../../components/Loading";
 import { PageNotFound } from "../../components/PageNotFound";
 
-import { UPDATE_CLIENT } from "../../graphql/mutations/client.mutations";
+import { useNavigate, useParams } from 'react-router-dom'
 import { GET_CLIENT } from "../../graphql/queries/client.queries";
-
+import { UPDATE_CLIENT } from "../../graphql/mutations/client.mutations";
 
 const EditClient = () => {
-    const router = useRouter();
-    const { query } = router;
+    const navigate = useNavigate()
+    const { userId } = useParams();
+
     const { data, loading, error } = useQuery(GET_CLIENT, {
         variables: {
-            id: query.id,
+            id: userId,
         },
     });
     const [updateClient] = useMutation(UPDATE_CLIENT);
@@ -44,7 +45,7 @@ const EditClient = () => {
 
             const result = await updateClient({
                 variables: {
-                    id: query.id,
+                    id: userId,
                     payload: {
                         email,
                         lastname,
@@ -56,13 +57,12 @@ const EditClient = () => {
 
             })
 
-
             Swal.fire(
                 'Edited!',
                 'Client successfully edited',
                 'success'
             )
-            router.push('/')
+            navigate('/')
         } catch (error) {
             Swal.fire(
                 'There was a problem!',
@@ -73,7 +73,7 @@ const EditClient = () => {
 
     }
     return (
-        <Layout>
+        <Dashboard>
             <div className="text-2xl text-gray-800 font-light">Edit Client</div>
             <div className="flex justify-center mt-5">
                 <div className="w-full max-w-sm">
@@ -188,8 +188,8 @@ const EditClient = () => {
                     </Formik>
                 </div>
             </div>
-        </Layout >
+        </Dashboard >
     );
-};
+}
 
-export default EditClient;
+export default EditClient

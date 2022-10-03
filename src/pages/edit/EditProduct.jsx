@@ -1,23 +1,28 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { Formik } from "formik";
-import { useRouter } from "next/router";
+import { useNavigate, useParams } from "react-router-dom";
+
 import Swal from 'sweetalert2';
 import * as Yup from "yup";
 
-import FormInput from "../../components/Input/FormInput";
 
-import Loading from "../../components/Loading";
-import Layout from "../../components/Layout";
+
+import Dashboard from "../../components/Dashboard";
 import { PageNotFound } from "../../components/PageNotFound";
+import FormInput from "../../components/Input/FormInput";
+import Loading from "../../components/Loading";
+
 import { GET_PRODUCT } from "../../graphql/queries/product.queries";
 import { UPDATE_PRODUCT } from "../../graphql/mutations/product.mutations";
 
+
+
 const EditProduct = () => {
-    const router = useRouter();
-    const { query } = router;
+    const navigate = useNavigate();
+    const { productId } = useParams();
     const { data, loading, error } = useQuery(GET_PRODUCT, {
         variables: {
-            id: query.id,
+            id: productId,
         },
     });
     const [updateProduct] = useMutation(UPDATE_PRODUCT);
@@ -43,7 +48,7 @@ const EditProduct = () => {
             const { name, price, stock } = values;
             await updateProduct({
                 variables: {
-                    id: query.id,
+                    id: productId,
                     payload: {
                         name, price, stock
                     }
@@ -56,7 +61,7 @@ const EditProduct = () => {
                 'Product successfully edited',
                 'success'
             )
-            router.push('/products')
+            navigate('/products')
         } catch (error) {
             Swal.fire(
                 'Something wrong!',
@@ -67,7 +72,7 @@ const EditProduct = () => {
 
     }
     return (
-        <Layout>
+        <Dashboard>
             <div className="text-2xl text-gray-800 font-light">Edit Product</div>
             <div className="flex justify-center mt-5">
                 <div className="w-full max-w-sm">
@@ -149,7 +154,7 @@ const EditProduct = () => {
                     </Formik>
                 </div>
             </div>
-        </Layout >
+        </Dashboard >
     );
 };
 

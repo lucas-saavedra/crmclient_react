@@ -2,12 +2,14 @@
 import { useQuery } from '@apollo/client';
 import { useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import Layout from '../components/Layout';
-import { BEST_SELLERS } from '../graphql/queries/admin.queries';
+import Dashboard from '../../components/Dashboard';
+import { BEST_SELLERS } from '../../graphql/queries/admin.queries';
 
 
 
-const Bestsellers = () => {
+
+
+const BestSellers = () => {
 
     const { data, loading, error, startPolling, stopPolling } = useQuery(BEST_SELLERS);
 
@@ -25,7 +27,7 @@ const Bestsellers = () => {
         sellerGraphic[index] = { ...seller.seller[0], total: seller.total }
     })
     return (
-        <Layout>
+        <Dashboard>
 
             <ResponsiveContainer className='h-full' height={550} width={"99%"} >
                 <BarChart
@@ -51,8 +53,8 @@ const Bestsellers = () => {
             </ResponsiveContainer>
 
 
-        </Layout>
+        </Dashboard>
 
     );
 }
-export default Bestsellers
+export default BestSellers

@@ -2,9 +2,8 @@
 import { useQuery } from '@apollo/client';
 import { useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import Layout from '../components/Layout';
-import { BEST_CLIENTS } from '../graphql/queries/admin.queries';
-
+import Dashboard from '../../components/Dashboard';
+import { BEST_CLIENTS } from '../../graphql/queries/admin.queries';
 
 
 const BestClients = () => {
@@ -26,7 +25,7 @@ const BestClients = () => {
     })
 
     return (
-        <Layout>
+        <Dashboard>
 
             <ResponsiveContainer className='h-full' height={550} width={"99%"} >
                 <BarChart
@@ -52,7 +51,7 @@ const BestClients = () => {
             </ResponsiveContainer>
 
 
-        </Layout>
+        </Dashboard>
 
     );
 }

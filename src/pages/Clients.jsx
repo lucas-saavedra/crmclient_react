@@ -8,9 +8,9 @@ import { Link } from "react-router-dom";
 
 const Clients = () => {
   const { data, loading, error } = useQuery(GET_CLIENTS_SELLER)
-  if (loading) return <Loading />
+  if (loading === true) return <Loading />
   const { getClientsSeller } = data;
-  
+
   return (
     <Dashboard>
       <h1 className="text-2xl text-gray-800 font-light">Clients</h1>

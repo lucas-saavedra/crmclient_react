@@ -1,13 +1,13 @@
 
 import { useState } from 'react';
-
 import { useMutation } from '@apollo/client';
-import { useRouter } from 'next/router';
+
 import * as Yup from "yup"
 import { useFormik } from 'formik';
 import FormInput from "../components/Input/FormInput"
-import Layout from "../components/Layout"
+import Dashboard from "../components/Dashboard"
 import { ADD_USER } from '../graphql/mutations/user.mutations';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -15,10 +15,10 @@ import { ADD_USER } from '../graphql/mutations/user.mutations';
 const Register = () => {
     //message state
     const [message, setMessage] = useState({ msg: null, error: false });
-
+    const navigate = useNavigate();
     const [addUser] = useMutation(ADD_USER);
 
-    const router = useRouter();
+
 
     const formik = useFormik({
         initialValues: {
@@ -45,11 +45,11 @@ const Register = () => {
 
                 const { name, lastname } = response.data.addUser;
 
-                  setMessage({ msg: `Succesfully created! User: ${name} ${lastname}`, error: false });
-                 setTimeout(() => {
-                     setMessage({ msg: null, error: false });
-                     router.push("/login")
-                 }, 3000) 
+                setMessage({ msg: `Succesfully created! User: ${name} ${lastname}`, error: false });
+                setTimeout(() => {
+                    setMessage({ msg: null, error: false });
+                    navigate("/login");
+                }, 3000)
 
             } catch (error) {
                 setMessage({ msg: error.message, error: true })
@@ -60,7 +60,7 @@ const Register = () => {
     })
     const showMessage = () => {
         return (
-            
+
             <div className={` ${message.error ? "bg-red-300 " : "bg-green"}  py-2 px-3 w-full my-3 max-w-sm text-center mx-auto rounded`} >
                 <p >
                     {message.msg}
@@ -70,7 +70,7 @@ const Register = () => {
     }
     return (
 
-        <Layout>
+        <Dashboard>
             {message?.msg && showMessage()}
             <h1 className="text-center
                 text-2xl
@@ -151,16 +151,7 @@ const Register = () => {
                                 <p>{formik.errors.password}</p>
                             </div>
                         ) : null}
-                        {/*      <FormInput
-                            value={formik.values.name}
-                            onChange={formik.handleChange}
-                            htmlForm="confirmPassword"
-                            placeholder="Re enter your password"
-                            type="password"
-                            label="Confirm Password"
-                            id="confirmPassword"
-                        />
- */}
+
                         <input
                             type="submit"
                             className="bg-gray-800 w-full mt-5 p-2 text-white hover:bg-gray-600"
@@ -170,7 +161,7 @@ const Register = () => {
                     </form>
                 </div>
             </div>
-        </Layout>
+        </Dashboard>
     )
 }
 

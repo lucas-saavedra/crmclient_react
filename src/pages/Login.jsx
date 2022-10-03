@@ -1,18 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
-import { useMutation } from '@apollo/client';
-
+import { useMutation, useQuery } from '@apollo/client';
 import * as Yup from "yup"
-
 import FormInput from "../components/Input/FormInput";
 import { AUTH_USER } from '../graphql/mutations/user.mutations';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+
 
 
 const Login = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [message, setMessage] = useState({ msg: null, error: false });
-
     const [authUser] = useMutation(AUTH_USER);
 
 
@@ -32,24 +30,21 @@ const Login = () => {
                         authPayload: {
                             ...values
                         }
+                    },
+
+                    onCompleted: ({ authUser }) => {
+                        setMessage({ msg: `Login in...`, error: false });
+                        const { token } = authUser;
+                        localStorage.setItem('token', token);
+                        return navigate('/')
                     }
+
                 })
-
-
-
-                setMessage({ msg: `Login in...`, error: false });
-
                 //saving the token in localStorage
-                setTimeout(() => {
-                    const { token } = response.data.authUser;
-                    localStorage.setItem('token', token);
-
-                }, 1000)
 
                 setTimeout(() => {
                     setMessage({ msg: null, error: false });
-                    navigate('/');
-                }, 2000)
+                }, 3000)
 
             } catch (error) {
                 setMessage({ msg: error.message, error: true })
@@ -126,6 +121,7 @@ const Login = () => {
                             />
 
                         </form>
+                        
                     </div>
                 </div>
 

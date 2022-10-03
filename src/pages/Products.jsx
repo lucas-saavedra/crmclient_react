@@ -15,7 +15,7 @@ const Products = () => {
     return (
         <Dashboard>
             <h1 className="text-2xl text-gray-800 font-light">Products</h1>
-            <Link href="/newproduct">
+            <Link to={'/newproduct'}>
                 New Product
             </Link>
             <div className="overflow-x-scroll">

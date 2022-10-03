@@ -1,22 +1,23 @@
 import { useMutation } from "@apollo/client";
-import { useRouter } from "next/router";
+
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useState } from "react";
-import FormInput from "../components/Input/FormInput";
-import Layout from "../components/Layout";
+import FormInput from "../../components/Input/FormInput";
+import Dashboard from "../../components/Dashboard";
 
-import SuccessMsg from "../components/Messages/SuccessMsg";
-import ErrorMsg from "../components/Messages/ErrorMsg";
+import SuccessMsg from "../../components/Messages/SuccessMsg";
+import ErrorMsg from "../../components/Messages/ErrorMsg";
 
-import { ADD_CLIENT } from "../graphql/mutations/client.mutations";
-import { GET_CLIENTS_SELLER } from "../graphql/queries/client.queries";
+import { ADD_CLIENT } from "../../graphql/mutations/client.mutations";
+import { GET_CLIENTS_SELLER } from "../../graphql/queries/client.queries";
+import { useNavigate } from "react-router-dom";
 
 const NewClient = () => {
 
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
-  const router = useRouter();
+  const navigate = useNavigate();
   const [addClient] = useMutation(ADD_CLIENT, {
     update(cache, { data: { addClient } }) {
       //get object cache
@@ -62,7 +63,7 @@ const NewClient = () => {
         setMessage(`Client created!: ${name} ${lastname}`);
         setTimeout(() => {
           setMessage(null);
-          router.push("/");
+          navigate("/");
         }, 3000);
       } catch (error) {
         setError(error.message);
@@ -72,7 +73,7 @@ const NewClient = () => {
   });
 
   return (
-    <Layout>
+    <Dashboard>
       <div className=" text-2xl text-gray-800 font-light">New Client</div>
 
       <div className="flex justify-center mt-5">
@@ -176,7 +177,7 @@ const NewClient = () => {
           </form>
         </div>
       </div>
-    </Layout>
+    </Dashboard>
   );
 };
 

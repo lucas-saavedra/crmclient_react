@@ -1,22 +1,25 @@
 import { useMutation } from "@apollo/client";
-import { useRouter } from "next/router";
+
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useState } from "react";
-import FormInput from "../components/Input/FormInput";
-import Layout from "../components/Layout";
 
-import SuccessMsg from "../components/Messages/SuccessMsg";
-import ErrorMsg from "../components/Messages/ErrorMsg";
-import { ADD_PRODUCT } from "../graphql/mutations/product.mutations";
-import { GET_PRODUCTS } from "../graphql/queries/product.queries";
+import Dashboard from "../../components/Dashboard";
+
+
+import ErrorMsg from "../../components/Messages/ErrorMsg";
+import SuccessMsg from "../../components/Messages/SuccessMsg";
+import FormInput from "../../components/Input/FormInput";
+import { useNavigate } from "react-router-dom";
+import { ADD_PRODUCT } from "../../graphql/mutations/product.mutations";
+import { GET_PRODUCTS } from "../../graphql/queries/product.queries";
 
 
 const NewProduct = () => {
 
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
-  const router = useRouter();
+  const navigate = useNavigate();
   const [addProduct] = useMutation(ADD_PRODUCT, {
     update(cache, { data: { addProduct } }) {
       //get object cache
@@ -65,7 +68,7 @@ const NewProduct = () => {
         setMessage(`Product created!: ${name}`);
         setTimeout(() => {
           setMessage(null);
-          router.push("/products");
+          navigate("/products");
         }, 3000);
       } catch (error) {
         setError(error.message);
@@ -75,7 +78,7 @@ const NewProduct = () => {
   });
 
   return (
-    <Layout>
+    <Dashboard>
       <div className="text-2xl text-gray-800 font-light">New Product</div>
 
       <div className="flex justify-center mt-5">
@@ -146,7 +149,7 @@ const NewProduct = () => {
           </form>
         </div>
       </div>
-    </Layout>
+    </Dashboard>
   );
 };
 

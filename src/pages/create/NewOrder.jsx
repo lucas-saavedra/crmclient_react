@@ -1,23 +1,27 @@
 
 
 import { useMutation } from '@apollo/client'
-import { useRouter } from 'next/router'
+
 import { useContext, useState } from 'react'
-import Layout from '../components/Layout'
-import ErrorMsg from '../components/Messages/ErrorMsg'
-import OrderResume from '../components/orders/OrderResume'
-import SelectClient from '../components/orders/SelectClient'
-import SelectProducts from '../components/orders/SelectProducts'
-import Total from '../components/orders/Total'
-import { OrderContext } from '../context/orders/OrderContext'
+import { OrderContext } from '../../context/orders/OrderContext';
 
 import Swal from 'sweetalert2';
-import { NEW_ORDER } from '../graphql/mutations/order.mutations'
-import { GET_ORDERS } from '../graphql/queries/order.queries'
-const Neworder = () => {
+
+import Dashboard from '../../components/Dashboard'
+import ErrorMsg from '../../components/Messages/ErrorMsg'
+import OrderResume from '../../components/orders/OrderResume'
+import SelectClient from '../../components/orders/SelectClient'
+import SelectProducts from '../../components/orders/SelectProducts'
+import Total from '../../components/orders/Total'
+
+import { GET_ORDERS } from '../../graphql/queries/order.queries';
+import { NEW_ORDER } from '../../graphql/mutations/order.mutations';
+import { useNavigate } from 'react-router-dom';
+
+const NewOrder = () => {
     const [error, setError] = useState(null)
 
-    const router = useRouter();
+    const navigate = useNavigate();
     //Using context
     const { client, products, total } = useContext(OrderContext);
     //Mutation
@@ -56,7 +60,7 @@ const Neworder = () => {
                 'success'
             )
             setTimeout(() => {
-                router.push('/orders')
+                navigate('/orders')
             }, 2000);
 
         } catch (error) {
@@ -70,7 +74,7 @@ const Neworder = () => {
     }
 
     return (
-        <Layout>
+        <Dashboard>
             <div className='text-2xl text-gray-800 font-light'>New Order</div>
             <div className='flex justify-center mt-5'>
                 <div className='w-full max-w-lg '>
@@ -95,9 +99,9 @@ const Neworder = () => {
 
             </div>
 
-        </Layout>
+        </Dashboard>
 
     )
 }
 
-export default Neworder
+export default NewOrder
