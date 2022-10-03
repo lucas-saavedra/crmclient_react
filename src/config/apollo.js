@@ -2,7 +2,7 @@ import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 import { setContext } from "apollo-link-context";
 
 const httplink = createHttpLink({
-    uri: import.meta.env.VITE_SERVER_URI,
+    uri: `${import.meta.env.VITE_SERVER_URI}`,
 });
 
 const authLink = setContext((_, { headers }) => {
