@@ -60,7 +60,7 @@ const Product = ({ product }) => {
 
     }
     const updateProduct = () => {
-        navigate(`/${id}`)
+        navigate(`edit-product/${id}`)
     }
     return (
         <tr >

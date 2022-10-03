@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
 
 import Swal from 'sweetalert2';
 import { DELETE_CLIENT } from '../graphql/mutations/client.mutations';
@@ -6,6 +7,7 @@ import { GET_CLIENTS_SELLER } from '../graphql/queries/client.queries';
 
 
 const Client = ({ client, }) => {
+    const navigate = useNavigate();
     const { id, name, lastname, organization, email } = client;
 
     const [deleteClient] = useMutation(DELETE_CLIENT,
@@ -55,6 +57,7 @@ const Client = ({ client, }) => {
 
     }
     const updateClient = () => {
+        navigate(`/edit-client/${id}`)
     }
     return (
         <tr >

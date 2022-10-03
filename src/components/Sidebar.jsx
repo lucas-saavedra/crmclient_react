@@ -1,11 +1,10 @@
-import { useQuery } from "@apollo/client";
-import { Link } from "react-router-dom";
 
-
-import { GET_USER } from "../graphql/queries/user.queries";
+import { useContext } from "react";
+import { NavLink } from "react-router-dom";
+import { UserContext } from "../context/user/userContext";
 
 const Sidebar = () => {
-
+    const { user } = useContext(UserContext);
 
 
     return (
@@ -14,35 +13,50 @@ const Sidebar = () => {
                 <p className="text-white text-2xl font-black " >CRM - Clients</p>
             </div>
             <nav className="mt-5 list-none">
-                <li className="bg-blue-800 p-3" >
-                 
-                </li>
-                <li className="bg-blue-800 p-3" >
-                    <Link to="/orders" >
-                        Orders
-                    </Link>
-                </li>
-                <li className="bg-blue-800 p-3" >
-                    <Link to="/products" >
-                        Products
-                    </Link>
-                </li>
+                <ul>
+                    <li className="hover:bg-blue-800  rounded text-white p-3">
+                        <NavLink
+                            to="/" >
+                            Clients
+                        </NavLink>
+                    </li>
+                    <li className="hover:bg-blue-800 rounded text-white p-3">
+                        <NavLink to="/products" >
+                            Products
+                        </NavLink>
+                    </li>
+                    <li className="hover:bg-blue-800 rounded text-white p-3">
+                        <NavLink to="/orders" >
+                            Orders
+                        </NavLink>
+                    </li>
+                </ul>
+
             </nav >
-            <div className="sm:mt-10">
-                Other Options
-            </div>
-            <nav className="mt-5 list-none">
-                <li className="bg-blue-800 p-3" >
-                    <Link to="/bestsellers" >
-                        Best Sellers
-                    </Link>
-                </li>
-                <li className="bg-blue-800 p-3" >
-                    <Link to="/bestclients" >
-                        Best Clients
-                    </Link>
-                </li>
-            </nav>
+
+            {user.roles.includes('admin') && (
+                <>
+                    <div className="sm:mt-10 text-white">
+                        Other Options (Admin)
+                    </div>
+                    <nav className="mt-5 list-none">
+                        <ul>
+                            <li className="hover:bg-blue-800  rounded text-white p-3">
+                                <NavLink
+                                    to="/bestsellers" >
+                                    Best Sellers
+                                </NavLink>
+                            </li>
+                            <li className="hover:bg-blue-800 rounded text-white p-3">
+                                <NavLink to="/bestclients" >
+                                    Best Clients
+                                </NavLink>
+                            </li>
+                        </ul>
+                    </nav>
+                </>
+            )}
+
         </aside >
     )
 }
