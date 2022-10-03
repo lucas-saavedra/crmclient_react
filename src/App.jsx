@@ -14,7 +14,6 @@ import Clients from './pages/Clients'
 import NewClient from "./pages/create/newclient";
 import NewOrder from "./pages/create/Neworder";
 import NewProduct from "./pages/create/newproduct";
-/* import Neworder from "./pages/create/Neworder"; */
 import EditClient from "./pages/edit/EditClient";
 import EditProduct from "./pages/edit/EditProduct";
 import Login from "./pages/Login";
