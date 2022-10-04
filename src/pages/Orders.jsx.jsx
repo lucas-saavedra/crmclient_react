@@ -18,9 +18,9 @@ const Orders = () => {
             <Dashboard>
 
 
-                <h1 className='text-2xl text-gray-800 font-light'>Ordenes</h1>
+                <h1 className='text-2xl text-gray-800 font-light'>Orders</h1>
 
-                <NavLink to={'/neworder'} className={"inline-block bg-blue-800 rounded py-2 px-5 mt-5 inline-block text-white rounded text-sm hover:bg-gray-800 uppercase font-bold"}>
+                <NavLink to={'/neworder'} className="inline-block bg-blue-800 rounded py-2 px-5 mt-5 inline-block text-white rounded text-sm hover:bg-gray-800 uppercase font-bold">
                     New Order
                 </NavLink>
 

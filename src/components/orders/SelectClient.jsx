@@ -24,7 +24,7 @@ const SelectClient = () => {
     return (
 
         <>
-            <p className='mt-10 my-2 bg-white border-l-4 border-gray-800 text-grey-700 p-2 text-sm font-bold'>1.- Assing a Client</p>
+            <p className='mt-10 bg-gray-300 my-2 bg-white border-l-4 border-gray-800 text-grey-700 p-2 text-sm font-bold'>1.- Assing a Client</p>
             <Select className='mt-3'
                 options={getClientsSeller}
                 onChange={(option) => selectClient(option)}

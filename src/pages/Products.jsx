@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import Dashboard from "../components/Dashboard"
 import Loading from "../components/Loading";
@@ -15,9 +15,9 @@ const Products = () => {
     return (
         <Dashboard>
             <h1 className="text-2xl text-gray-800 font-light">Products</h1>
-            <Link to={'/newproduct'}>
+            <NavLink to="/newproduct" className="inline-block bg-blue-800 rounded py-2 px-5 mt-5 inline-block text-white rounded text-sm hover:bg-gray-800 uppercase font-bold">
                 New Product
-            </Link>
+            </NavLink>
             <div className="overflow-x-scroll">
                 <table className="table-auto shadow-md mt-10 w-full w-lg">
                     <thead className="bg-gray-800">

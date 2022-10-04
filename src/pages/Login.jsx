@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useFormik } from 'formik';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import * as Yup from "yup"
 import FormInput from "../components/Input/FormInput";
 import { AUTH_USER } from '../graphql/mutations/user.mutations';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-
+import toast, { Toaster } from 'react-hot-toast';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -36,6 +36,14 @@ const Login = () => {
                         setMessage({ msg: `Login in...`, error: false });
                         const { token } = authUser;
                         localStorage.setItem('token', token);
+                        toast.success('Success ,Login in...', {
+                            style: {
+                                border: '1px solid #2c5282',
+                                padding: '16px',
+                                color: '#2c5282',
+                                backgroundColor: "white"
+                            },
+                        });
                         return navigate('/')
                     }
 
@@ -47,8 +55,14 @@ const Login = () => {
                 }, 3000)
 
             } catch (error) {
-                setMessage({ msg: error.message, error: true })
-                setTimeout(() => setMessage({ msg: null, error: false }), 3000)
+                toast.error(error.message, {
+                    style: {
+                        border: '1px solid #2c5282',
+                        padding: '16px',
+                        color: '#2c5282',
+                        backgroundColor: "white"
+                    },
+                });
             }
         }
 
@@ -65,6 +79,10 @@ const Login = () => {
     return (
 
         <div className=' min-h-screen bg-gray-800 w-full'>
+            <Toaster
+                position="bottom-center"
+                reverseOrder={false}
+            />
             <div className='  sm:min-h-screen p-5'>
                 <h1 className="text-center
 

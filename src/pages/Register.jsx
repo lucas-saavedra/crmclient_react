@@ -1,18 +1,18 @@
 
-import { useState } from 'react';
+
 import { useMutation } from '@apollo/client';
 import toast, { Toaster } from 'react-hot-toast';
 import * as Yup from "yup"
 import { useFormik } from 'formik';
 import FormInput from "../components/Input/FormInput"
-import Dashboard from "../components/Dashboard"
+
 import { ADD_USER } from '../graphql/mutations/user.mutations';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Register = () => {
     //message state
-    
+
     const [addUser] = useMutation(ADD_USER);
     const navigate = useNavigate();
 
@@ -77,7 +77,7 @@ const Register = () => {
     return (
 
         <div className='bg-gray-800 min-h-screen'>
-           
+
             <h1 className="
             py-5 text-center
                 text-2xl
@@ -169,6 +169,12 @@ const Register = () => {
                         />
 
                     </form>
+                    <div className='flex flex-col justify-center'>
+                        <p className='text-white text-center' >Already registered?</p>
+                        <div className='text-center mt-6'>
+                            <span className='p-2 text-white bg-blue-800 rounded'> <Link to={'/login'}>Login here</Link></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

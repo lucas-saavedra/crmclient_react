@@ -20,7 +20,7 @@ const SelectProducts = () => {
     const { getProducts } = data;
     return (
         <>
-            <p className='mt-10 my-2 bg-white border-l-4 border-gray-800 text-grey-700 p-2 text-sm font-bold'>2.- Assing products</p>
+            <p className='mt-10 my-2 bg-gray-300  bg-white border-l-4 border-gray-800 text-grey-700 p-2 text-sm font-bold'>2.- Assing products</p>
             <Select options={getProducts}
                 onChange={(opts) => selectProducts(opts)}
                 isMulti={true}
